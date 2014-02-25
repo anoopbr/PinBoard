@@ -1,0 +1,49 @@
+<?php
+$current_user=$_SESSION['username'];
+$user='root';
+$password='';
+$database='pinterest';
+$con=mysqli_connect('localhost',$user,$password,$database);
+if(!$con) 
+    {
+        die("Unable to select database");
+    }
+$query=$con->stmt_init();
+$query->prepare("SELECT fname,lname,email,dob,gender,phone,aboutme,street,city,state,country,zip,picid,picurl,image FROM view_profile where uname=?") or die (Header ("Location : error.php"));
+$query->bind_param("s",$current_user);
+$query->execute();
+$query->bind_result($fname,$lname,$email,$dob,$gender,$phone,$aboutme,$street,$city,$state,$country,$zip,$picid,$picurl,$image);
+$query->fetch();
+while($query->fetch()){
+	$fname=$fname;
+	$lname=$lname;
+	$email=$email;
+	$dob=$dob;
+	$gender=$gender;
+	$phone=$phone;
+	$aboutme=$aboutme;
+	$street=$street;
+	$city=$city;
+	$state=$state;
+	$country=$country;
+	$zip=$zip;
+	$picid=$picid;
+	$picurl=$picurl;
+	$image=$image;
+}
+$_SESSION['fname']=$fname;
+$_SESSION['lname']=$lname;
+$_SESSION['email']=$email;
+$_SESSION['dob']=$dob;
+$_SESSION['gender']=$gender;
+$_SESSION['phone']=$phone;
+$_SESSION['aboutme']=$aboutme;
+$_SESSION['street']=$street;
+$_SESSION['city']=$city;
+$_SESSION['state']=$state;
+$_SESSION['country']=$country;
+$_SESSION['zip']=$zip;
+$_SESSION['picid']=$picid;
+$_SESSION['picurl']=$picurl;
+$_SESSION['image']=$image;
+?>
